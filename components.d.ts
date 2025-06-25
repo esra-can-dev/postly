@@ -9,18 +9,27 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     Button: typeof import('primevue/button')['default']
+    Card: typeof import('primevue/card')['default']
     Column: typeof import('primevue/column')['default']
     DataTable: typeof import('primevue/datatable')['default']
+    DataView: typeof import('primevue/dataview')['default']
+    Fieldset: typeof import('primevue/fieldset')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     IconCommunity: typeof import('./src/components/icons/IconCommunity.vue')['default']
     IconDocumentation: typeof import('./src/components/icons/IconDocumentation.vue')['default']
     IconEcosystem: typeof import('./src/components/icons/IconEcosystem.vue')['default']
     IconSupport: typeof import('./src/components/icons/IconSupport.vue')['default']
     IconTooling: typeof import('./src/components/icons/IconTooling.vue')['default']
+    ProgressSpinner: typeof import('primevue/progressspinner')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Skeleton: typeof import('primevue/skeleton')['default']
     TheWelcome: typeof import('./src/components/TheWelcome.vue')['default']
+    UserDetail: typeof import('./src/components/UserDetail/UserDetail.vue')['default']
+    UserDetailCard: typeof import('./src/components/UserDetail/UserDetailCard/UserDetailCard.vue')['default']
+    UserDetailCardSkeleton: typeof import('./src/components/UserDetail/UserDetailCard/UserDetailCardSkeleton.vue')['default']
     UserList: typeof import('./src/components/Users/UserList.vue')['default']
+    UserPostList: typeof import('./src/components/UserDetail/UserPosts/UserPostList.vue')['default']
     WelcomeItem: typeof import('./src/components/WelcomeItem.vue')['default']
   }
 }

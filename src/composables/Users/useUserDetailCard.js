@@ -1,16 +1,16 @@
 import { ref } from 'vue'
 import UsersService from '@/services/UsersService'
 
-export default function useUsers() {
-  const userList = ref([])
+export default function useUserDetailCard() {
+  const userDetail = ref([])
   const loading = ref(false)
   const error = ref(null)
 
-  const fetchUsers = async () => {
+  const fetchUserById = async (id) => {
     try {
       loading.value = true
-      const response = await UsersService.getUsers()
-      userList.value = response.data
+      const response = await UsersService.getUserById(id)
+      userDetail.value = response.data
     } catch (err) {
       error.value = err.message || 'Veri alınamadı'
     } finally {
@@ -19,9 +19,9 @@ export default function useUsers() {
   }
 
   return {
-    userList,
+    userDetail,
     error,
-    fetchUsers,
+    fetchUserById,
     loading,
   }
 }
