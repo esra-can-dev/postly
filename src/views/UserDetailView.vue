@@ -1,6 +1,6 @@
 <template>
   <div class="grid gap-3 items-start md:grid-cols-[1fr_3fr]">
-    <UserDetailCard :id="id" class="w-full place-self-center" />
+    <UserDetailCard :id="id" class="w-full" />
     <div class="flex flex-col gap-3">
       <AddPostForm :id="id" />
       <UserPostList :id="id" />

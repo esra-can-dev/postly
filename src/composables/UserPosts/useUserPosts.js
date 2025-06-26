@@ -15,15 +15,11 @@ export default function useUserPosts() {
       loading.value = true
 
       if (totalPostCount.value === null) {
-        const allPosts = await PostService.getAllPostsByUserId(userId)
-        totalPostCount.value = allPosts.data.length
+        const { data } = await PostService.getAllPostsByUserId(userId)
+        totalPostCount.value = data.length
       }
 
-      const { data } = await PostService.getPostsByUserId(
-        userId,
-        start * USER_POST_PAGE_SIZE,
-        USER_POST_PAGE_SIZE,
-      )
+      const { data } = await PostService.getPostsByUserId(userId, start, USER_POST_PAGE_SIZE)
       postList.value = data
     } catch {
       showError('There is an error while fetching posts!')

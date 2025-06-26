@@ -69,7 +69,7 @@ onMounted(async () => {
 const first = ref(0)
 async function onPageChange(event) {
   first.value = event.first
-  await fetchPostsByUserId(props.id, 0)
+  await fetchPostsByUserId(props.id, first.value)
 }
 
 async function handleDeletePost(postId) {
