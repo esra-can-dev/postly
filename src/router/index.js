@@ -18,6 +18,10 @@ const router = createRouter({
       component: () => import('../views/UserDetailView.vue'),
       props: (route) => ({ id: Number(route.params.id) }),
     },
+    {
+      path: '/:pathMatch(.*)*',
+      redirect: '/users',
+    },
   ],
 })
 

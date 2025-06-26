@@ -32,6 +32,7 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Skeleton: typeof import('primevue/skeleton')['default']
+    Textarea: typeof import('primevue/textarea')['default']
     TheWelcome: typeof import('./src/components/TheWelcome.vue')['default']
     Toast: typeof import('primevue/toast')['default']
     UserDetail: typeof import('./src/components/UserDetail/UserDetail.vue')['default']
@@ -41,5 +42,8 @@ declare module 'vue' {
     UserPostList: typeof import('./src/components/UserDetail/UserPosts/UserPostList.vue')['default']
     UserPostListSkeleton: typeof import('./src/components/UserDetail/UserPosts/UserPostListSkeleton.vue')['default']
     WelcomeItem: typeof import('./src/components/WelcomeItem.vue')['default']
+  }
+  export interface GlobalDirectives {
+    Tooltip: typeof import('primevue/tooltip')['default']
   }
 }

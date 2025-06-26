@@ -5,7 +5,6 @@ import { showError } from '@/utils/toastUtils'
 export default function useUsers() {
   const userList = ref([])
   const loading = ref(false)
-  const error = ref(null)
 
   const fetchUsers = async () => {
     try {
@@ -21,7 +20,6 @@ export default function useUsers() {
 
   return {
     userList,
-    error,
     fetchUsers,
     loading,
   }

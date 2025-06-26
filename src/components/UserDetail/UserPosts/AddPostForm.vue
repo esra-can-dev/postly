@@ -3,7 +3,7 @@
     <h2 class="text-xl font-bold text-green-600 mb-3">Add a New Post</h2>
     <VeeForm
       @submit="onSubmit"
-      class="card flex flex-col md:items-start md:flex-row md:flex-wrap gap-4 justify-center"
+      class="card flex flex-col md:items-start md:flex-row gap-4 justify-center"
     >
       <div class="md:w-5/12">
         <InputGroup>
@@ -25,8 +25,13 @@
             <i class="pi pi-comments"></i>
           </InputGroupAddon>
           <FloatLabel variant="on">
-            <InputText id="on_title" v-model="content" :invalid="!!errors.content" />
-            <label for="on_title">Content</label>
+            <Textarea
+              id="on_content"
+              v-model="content"
+              :invalid="!!errors.content"
+              class="w-full h-11 min-h-11 align-middle"
+            />
+            <label for="on_content">Content</label>
           </FloatLabel>
         </InputGroup>
         <Message v-show="errors.content" severity="error" variant="simple" size="small">{{

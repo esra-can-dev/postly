@@ -6,7 +6,6 @@ import { showError, showSuccess } from '@/utils/toastUtils'
 export default function useUserPosts() {
   const postList = ref([])
   const loading = ref(false)
-  const error = ref(null)
   const totalPostCount = ref(null)
   const addButtonLoading = ref(false)
   const deleteButtonLoadingMap = ref({})
@@ -59,7 +58,6 @@ export default function useUserPosts() {
 
   return {
     postList,
-    error,
     fetchPostsByUserId,
     totalPostCount,
     loading,

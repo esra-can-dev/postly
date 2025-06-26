@@ -5,7 +5,6 @@ import { showError } from '@/utils/toastUtils'
 export default function useUserDetailCard() {
   const userDetail = ref({})
   const loading = ref(false)
-  const error = ref(null)
 
   const fetchUserById = async (id) => {
     try {
@@ -21,7 +20,6 @@ export default function useUserDetailCard() {
 
   return {
     userDetail,
-    error,
     fetchUserById,
     loading,
   }

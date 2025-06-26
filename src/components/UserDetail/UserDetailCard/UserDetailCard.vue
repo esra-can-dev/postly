@@ -7,7 +7,7 @@
 
       <div v-else class="flex flex-col items-center">
         <img
-          :src="`https://ui-avatars.com/api/?name=${userDetail.name}&background=random`"
+          :src="`https://ui-avatars.com/api/?name=${userDetail?.name ?? 'User'}&background=random`"
           alt="User avatar"
           class="w-24 h-24 rounded-full shadow mb-3"
         />
@@ -44,12 +44,12 @@ const props = defineProps({
 
 const { userDetail, fetchUserById, loading } = useUserDetailCard()
 onMounted(async () => {
-  fetchUserById(props.id)
+  await fetchUserById(props.id)
 })
 
-const address = computed(() =>
-  Object.keys(userDetail.value).length === 0
-    ? ''
-    : `${userDetail.value?.address?.street} St, ${userDetail.value?.address?.suite}, ${userDetail.value?.address?.city}, ${userDetail.value?.address?.zipcode}`,
-)
+const address = computed(() => {
+  const addr = userDetail.value?.address
+  if (!addr) return ''
+  return `${addr.street} St, ${addr.suite}, ${addr.city}, ${addr.zipcode}`
+})
 </script>

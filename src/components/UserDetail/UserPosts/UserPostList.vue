@@ -13,10 +13,10 @@
     >
       <template #list="slotProps">
         <div class="flex flex-col">
-          <div v-for="(item, index) in slotProps.items" :key="index">
+          <div v-for="item in slotProps.items" :key="item.id">
             <Fieldset>
               <template #legend>
-                <div class="flex items-center content-between pl-2">
+                <div class="flex items-center justify-between pl-2">
                   <Button
                     label="Delete"
                     icon="pi pi-trash"
