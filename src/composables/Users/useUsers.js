@@ -1,5 +1,6 @@
 import { ref } from 'vue'
 import UsersService from '@/services/UsersService'
+import { showError } from '@/utils/toastUtils'
 
 export default function useUsers() {
   const userList = ref([])
@@ -11,8 +12,8 @@ export default function useUsers() {
       loading.value = true
       const response = await UsersService.getUsers()
       userList.value = response.data
-    } catch (err) {
-      error.value = err.message || 'Veri alınamadı'
+    } catch {
+      showError('There is an error while fetching users!')
     } finally {
       loading.value = false
     }

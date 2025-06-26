@@ -1,11 +1,11 @@
 <template>
-  <div class="card">
-    <div v-if="loading">esra</div>
+  <div class="card p-4">
+    <UserPostListSkeleton v-if="loading" />
     <DataView
       v-else
       :value="postList"
       paginator
-      :rows="3"
+      :rows="USER_POST_PAGE_SIZE"
       :totalRecords="totalPostCount"
       :lazy="true"
       :first="first"
@@ -23,6 +23,9 @@
                     severity="danger"
                     outlined
                     size="small"
+                    class="w-full md:w-auto"
+                    :loading="deleteButtonLoadingMap[item.id]"
+                    @click="handleDeletePost(item.id)"
                   ></Button>
                   <span class="font-bold p-2">{{ item.title }}</span>
                 </div>
@@ -41,6 +44,8 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import useUserPosts from '@/composables/UserPosts/useUserPosts'
+import { USER_POST_PAGE_SIZE } from '@/constants/userPosts'
+import UserPostListSkeleton from './UserPostListSkeleton.vue'
 
 const props = defineProps({
   id: {
@@ -49,14 +54,25 @@ const props = defineProps({
   },
 })
 
-const { postList, fetchPostsByUserId, loading, totalPostCount } = useUserPosts()
+const {
+  postList,
+  fetchPostsByUserId,
+  loading,
+  totalPostCount,
+  deletePost,
+  deleteButtonLoadingMap,
+} = useUserPosts()
 onMounted(async () => {
   await fetchPostsByUserId(props.id, 0)
 })
 
 const first = ref(0)
-function onPageChange(event) {
+async function onPageChange(event) {
   first.value = event.first
-  fetchPostsByUserId(props.id, event.page)
+  await fetchPostsByUserId(props.id, 0)
+}
+
+async function handleDeletePost(postId) {
+  await deletePost(postId)
 }
 </script>

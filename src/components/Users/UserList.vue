@@ -22,7 +22,7 @@ import { useRouter } from 'vue-router'
 
 const { userList, fetchUsers, loading } = useUsers()
 onMounted(async () => {
-  fetchUsers()
+  await fetchUsers()
 })
 
 const refreshUsers = () => fetchUsers()

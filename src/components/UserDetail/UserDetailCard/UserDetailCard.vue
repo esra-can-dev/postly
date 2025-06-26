@@ -47,8 +47,9 @@ onMounted(async () => {
   fetchUserById(props.id)
 })
 
-const address = computed(
-  () =>
-    `${userDetail.value?.address?.street} St, ${userDetail.value?.address?.suite}, ${userDetail.value?.address?.city}, ${userDetail.value?.address?.zipcode}`,
+const address = computed(() =>
+  Object.keys(userDetail.value).length === 0
+    ? ''
+    : `${userDetail.value?.address?.street} St, ${userDetail.value?.address?.suite}, ${userDetail.value?.address?.city}, ${userDetail.value?.address?.zipcode}`,
 )
 </script>
