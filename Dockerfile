@@ -4,14 +4,12 @@ WORKDIR /app
 
 COPY package*.json ./
 COPY vite.config.* ./
-COPY .npmrc .npmrc
-
 
 RUN npm install
 COPY . .
 RUN npm run build
 
-FROM nginx:stable-alpine as production
+FROM nginx:stable-alpine AS production
 
 COPY --from=builder /app/dist /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
