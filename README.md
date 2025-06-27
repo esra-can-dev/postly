@@ -90,6 +90,8 @@ npm run test:unit
 npm run test:e2e:dev
 ```
 
+---
+
 ### Recommended IDE Setup
 
 [VSCode](https://code.visualstudio.com/)
@@ -101,4 +103,4 @@ npm run test:e2e:dev
 - **JSONPlaceholder** is a mock API; POST and DELETE requests respond successfully but do **not persist** data.
 - Pagination is initially handled via `_start` and `sh_limit` query parameters, e.g. `https://jsonplaceholder.typicode.com/posts?_start=0&_limit=3`
 - However, once a new post is added or a post is deleted, **all post state is managed locally**, including pagination logic. No further GET requests are made to the API after that point.
-- Form validation is handled with **vee-validate** and \*\*yup--.
+- Form validation is handled with **vee-validate** and **yup**.
