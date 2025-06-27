@@ -10,17 +10,27 @@ export default function useUserPosts() {
   const addButtonLoading = ref(false)
   const deleteButtonLoadingMap = ref({})
 
+  const allPostsRaw = ref([])
+  const currentStart = ref(0)
+  const hasCreateAndDeleteEvent = ref(false)
+
   const fetchPostsByUserId = async (userId, start) => {
     try {
       loading.value = true
+      currentStart.value = start
 
-      if (totalPostCount.value === null) {
-        const { data } = await PostService.getAllPostsByUserId(userId)
-        totalPostCount.value = data.length
+      if (allPostsRaw.value.length === 0) {
+        const { data: allPosts } = await PostService.getAllPostsByUserId(userId)
+        allPostsRaw.value = [...allPosts]
+        totalPostCount.value = allPosts.length
       }
 
-      const { data } = await PostService.getPostsByUserId(userId, start, USER_POST_PAGE_SIZE)
-      postList.value = data
+      if (hasCreateAndDeleteEvent.value) {
+        postList.value = allPostsRaw.value.slice(start, start + USER_POST_PAGE_SIZE)
+      } else {
+        const { data } = await PostService.getPostsByUserId(userId, start, USER_POST_PAGE_SIZE)
+        postList.value = data
+      }
     } catch {
       showError('There is an error while fetching posts!')
     } finally {
@@ -31,8 +41,21 @@ export default function useUserPosts() {
   const createPost = async (payload) => {
     try {
       addButtonLoading.value = true
-      await PostService.createPost(payload)
-      showSuccess('Post successfully added!')
+      const { data: newPost } = await PostService.createPost(payload)
+      showSuccess('Post successfully added! You can see the new post at the first page!')
+
+      hasCreateAndDeleteEvent.value = true
+      totalPostCount.value++
+
+      allPostsRaw.value.unshift({
+        ...newPost,
+        id: Date.now(),
+      })
+
+      postList.value = allPostsRaw.value.slice(
+        currentStart.value,
+        currentStart.value + USER_POST_PAGE_SIZE,
+      )
     } catch {
       showError('There is an error while adding a post!')
     } finally {
@@ -45,6 +68,14 @@ export default function useUserPosts() {
       deleteButtonLoadingMap.value[postId] = true
       await PostService.deletePost(postId)
       showSuccess('Post successfully deleted!')
+      hasCreateAndDeleteEvent.value = true
+      totalPostCount.value--
+
+      allPostsRaw.value = allPostsRaw.value.filter((p) => p.id !== postId)
+      postList.value = allPostsRaw.value.slice(
+        currentStart.value,
+        currentStart.value + USER_POST_PAGE_SIZE,
+      )
     } catch {
       showError('There is an error while deleting the post!')
     } finally {

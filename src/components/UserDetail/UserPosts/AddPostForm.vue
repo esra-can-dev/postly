@@ -50,9 +50,9 @@
 </template>
 
 <script setup>
+import { inject } from 'vue'
 import { Form as VeeForm, useForm } from 'vee-validate'
 import * as yup from 'yup'
-import useUserPosts from '@/composables/UserPosts/useUserPosts'
 
 const props = defineProps({
   id: {
@@ -71,7 +71,7 @@ const { defineField, handleSubmit, resetForm, errors } = useForm({
 const [title] = defineField('title')
 const [content] = defineField('content')
 
-const { createPost, addButtonLoading } = useUserPosts()
+const { createPost, addButtonLoading } = inject('postState')
 const onSubmit = handleSubmit(async (values) => {
   const payload = {
     title: values.title,

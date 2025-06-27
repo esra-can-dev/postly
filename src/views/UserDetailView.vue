@@ -12,6 +12,8 @@
 import UserDetailCard from '../components/UserDetail/UserDetailCard/UserDetailCard.vue'
 import UserPostList from '../components/UserDetail/UserPosts/UserPostList.vue'
 import AddPostForm from '../components/UserDetail/UserPosts/AddPostForm.vue'
+import useUserPosts from '@/composables/UserPosts/useUserPosts'
+import { provide } from 'vue'
 
 defineProps({
   id: {
@@ -19,4 +21,7 @@ defineProps({
     required: true,
   },
 })
+
+const postState = useUserPosts()
+provide('postState', postState)
 </script>

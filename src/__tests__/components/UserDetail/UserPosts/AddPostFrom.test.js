@@ -17,13 +17,23 @@ describe('AddPostForm.vue', () => {
     vi.clearAllMocks()
   })
 
-  it('submits valid form and calls createPost', async () => {
-    const wrapper = mount(AddPostForm, {
+  function mountComponent() {
+    return mount(AddPostForm, {
       props: { id: 1 },
       global: {
         plugins: [PrimeVue],
+        provide: {
+          postState: {
+            createPost: createPostMock,
+            addButtonLoading: false,
+          },
+        },
       },
     })
+  }
+
+  it('submits valid form and calls createPost', async () => {
+    const wrapper = mountComponent()
 
     await wrapper.find('#on_title').setValue('Test title')
     await wrapper.find('#on_content').setValue('Test content')
@@ -38,12 +48,7 @@ describe('AddPostForm.vue', () => {
   })
 
   it('shows validation errors when fields are empty', async () => {
-    const wrapper = mount(AddPostForm, {
-      props: { id: 1 },
-      global: {
-        plugins: [PrimeVue],
-      },
-    })
+    const wrapper = mountComponent()
 
     await wrapper.vm.onSubmit()
     await wrapper.vm.$nextTick()

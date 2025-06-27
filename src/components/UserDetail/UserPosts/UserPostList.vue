@@ -42,8 +42,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
-import useUserPosts from '@/composables/UserPosts/useUserPosts'
+import { onMounted, ref, inject } from 'vue'
 import { USER_POST_PAGE_SIZE } from '@/constants/userPosts'
 import UserPostListSkeleton from './UserPostListSkeleton.vue'
 
@@ -61,7 +60,8 @@ const {
   totalPostCount,
   deletePost,
   deleteButtonLoadingMap,
-} = useUserPosts()
+} = inject('postState')
+
 onMounted(async () => {
   await fetchPostsByUserId(props.id, 0)
 })

@@ -61,7 +61,9 @@ describe('useUserPosts', () => {
     await createPost(mockPayload)
 
     expect(PostService.createPost).toHaveBeenCalledWith(mockPayload)
-    expect(showSuccess).toHaveBeenCalledWith('Post successfully added!')
+    expect(showSuccess).toHaveBeenCalledWith(
+      'Post successfully added! You can see the new post at the first page!',
+    )
     expect(addButtonLoading.value).toBe(false)
   })
 
